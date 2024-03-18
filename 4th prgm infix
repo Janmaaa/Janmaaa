@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_STACK_SIZE 100 #define MAX_EXPRESSION_SIZE 100
+struct Stack
+{
+char items[MAX_STACK_SIZE];
+int top;
+};
+void initStack(struct Stack *stack)
+{
+stack->top =-1;
+}
+int isEmpty(struct Stack *stack)
+{
+return (stack->top==-1);
+}
+void push(struct Stack *stack, char value)
+{
+if (stack->top < MAX_STACK_SIZE - 1)
+{
+stack->items[++stack->top] = value;
+}
+}
+char pop(struct Stack *stack)
+{
+if (!isEmpty(stack))
+{
+return stack->items[stack->top--];
+}
+return '\0';
+}
+int getPrecedence(char operator)
+{
+switch (operator)
+{
+case '^': return 3; case '*': case '/': case '%': return 2; case '+': case '-': return 1; default: return 0;
+}
+}
+void infixToPostfix (char *infix, char *postfix)
+{
+struct Stack operatorStack; initStack(&operatorStack); int i,j =0;
+for (i =0; infix[i]; i++)
+{
+char current = infix[i]; if (isalnum(current))
+{
+postfix[j++] = current;
+}
+else if (current=='(')
+{
+push(&operatorStack, current);
+}
+else if (current==')')
+{
+while (!isEmpty( &operatorStack) && operatorStack.items[operatorStack.top] != '(')
+{
+postfix[j++]= pop(&operatorStack);
+}
+if(!isEmpty(&operatorStack)&&operatorStack.items[operatorStack.top]=='(')
+{
+pop(&operatorStack); //pop '('
+}
+}
+else
+{
+while(!isEmpty(&operatorStack) && getPrecedence(current) <= getPrecedence(operatorStack.items[operatorStack.top] ))
+{
+postfix[j++]=pop(&operatorStack);
+}
+push(&operatorStack,current);
+}
+}
+while (!isEmpty(&operatorStack))
+{
+postfix[j++]=pop(&operatorStack);
+}
+postfix[j]= '\0'; // Null -terminate the postfix expression
+}
+int main()
+{
+char infixExpression[MAX_EXPRESSION_SIZE]; char postfixExpression[MAX_EXPRESSION_SIZE]; printf("Enter an infix expression: "); scanf("%s",infixExpression); infixToPostfix(infixExpression, postfixExpression); printf("Infix Expression: %s\n", infixExpression); printf("Postfix Expression: %s\n", postfixExpression); return 0;
+}

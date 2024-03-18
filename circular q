@@ -1,0 +1,56 @@
+#include<stdlib.h>  
+#define SIZE 5  
+char q[SIZE];  
+int i,r=-1;  
+int option,f=0;  
+int j,count=0;  
+void insert() {  
+if(count==SIZE) 
+ printf("\n Q is Full\n");  
+else { 
+ r=(r+1)%SIZE;  
+ printf("\nEnter the item:");  
+scanf(" %c",&q[r]);  
+count++;  
+}  
+}  
+void delet() { 
+ if(count==0)   
+printf("\nQ is empty\n");  
+else  
+{  
+ printf("\nDeleted item is: %c",q[f]);  
+count--;  
+f=(f+1)%SIZE; }  
+}  
+void display()  
+{ 
+ if(count==0)   
+printf("\nQ is Empty\n");  
+else  
+{  
+i=f;  
+for(j=1;j<=count;j++)  
+{ 
+  printf(" %c",q[i]);  
+i=(i+1)%SIZE;  
+}  
+}  
+}  
+int main()  
+{  
+for(;;) 
+ {   
+printf("\n1.Insert 2.Delete\n 3.Display 4.Exit"); 
+  printf("\nEnter your option:");  
+scanf("%d",&option);  
+switch(option)  
+{  
+case 1: insert();//Inserting items to Queue   
+break;  
+case 2: delet(); //Deleting items from Queue   
+break;  
+case 3:display(); //Displaying items from Queue  
+ break;  
+default:exit(0);  
+} } } 

@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h> #include <string.h>
+struct Day { char* dayName; int date; char* activity;
+};
+void create(struct Day calendar[7]) {
+for (int i = 0; i < 7; i++) {
+calendar[i].dayName = (char*)malloc(20 * sizeof(char)); 
+calendar[i].activity = (char*)malloc(100 * sizeof(char));
+if (calendar[i].dayName == NULL || calendar[i].activity == NULL)
+{ printf("Memory allocation failed. Exiting...\n"); 
+exit(1);
+}
+}
+}
+void read(struct Day calendar[7]) {
+for (int i = 0; i < 7; i++) {
+printf("Enter the name of the day for day %d: ", i + 1); scanf("%s", calendar[i].dayName); printf("Enter the date of the day %d: ", i + 1); scanf("%d", &calendar[i].date); printf("Enter the activity for the day %d: ", i + 1); scanf("%s", calendar[i].activity);
+}
+}
+void display(struct Day calendar[7]) {
+printf("Weekly Activity Report:\n"); for (int i = 0; i < 7; i++) {
+printf("Day %d: %s\n", i + 1, calendar[i].dayName); printf("Date: %d\n", calendar[i].date); printf("Activity: %s\n", calendar[i].activity); printf("\n");
+}
+}
+int main() {
+struct Day calendar[7]; create(calendar); read(calendar); display(calendar); for (int i = 0; i < 7; i++) { free(calendar[i].dayName); free(calendar[i].activity);
+}
+return 0;
+}

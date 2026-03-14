@@ -216,7 +216,8 @@ interests  :
 
 <br/>
 
-> ✨ *Open to opportunities, collaborations, and exciting projects!*
+> ✨ *"Every great developer was once a beginner who
+>    refused to give up."  — Janma K Gowda*
 
 </div>
 
